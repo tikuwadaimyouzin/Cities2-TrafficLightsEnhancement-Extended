@@ -4110,6 +4110,13 @@ public partial class UISystem
             phaseBuffer[i] = phase;
         }
 
+        if (EntityManager.TryGetComponent<TrafficGroupMember>(m_SelectedEntity, out var member)
+            && member.m_GroupEntity != Entity.Null)
+        {
+            World.GetOrCreateSystemManaged<TrafficGroupSystem>()
+                .RecalculateGroupCycleLength(member.m_GroupEntity);
+        }
+
         m_MainPanelBinding?.Update();
         UpdateEntity(addUpdated: false);
     }
