@@ -11,7 +11,8 @@ public struct CustomPhaseUtils
 {
     public static void ValidateBuffer(ref InitializeTrafficLightsJob job, Entity nodeEntity, DynamicBuffer<SubLane> nodeSubLaneBuffer, DynamicBuffer<ConnectedEdge> connectedEdgeBuffer, DynamicBuffer<EdgeGroupMask> edgeGroupMaskBuffer, DynamicBuffer<SubLaneGroupMask> subLaneGroupMaskBuffer, BufferLookup<SubLane> subLaneLookup)
     {
-        for (int i = 0; i < edgeGroupMaskBuffer.Length; i++)
+        // A swap-back removal moves an already validated tail entry into this slot.
+        for (int i = edgeGroupMaskBuffer.Length - 1; i >= 0; i--)
         {
             var groupMask = edgeGroupMaskBuffer[i];
             bool edgeFound = false;
@@ -61,7 +62,7 @@ public struct CustomPhaseUtils
         {
             subLaneBufferList.Add(subLaneLookup[edge.m_Edge]);
         }
-        for (int i = 0; i < subLaneGroupMaskBuffer.Length; i++)
+        for (int i = subLaneGroupMaskBuffer.Length - 1; i >= 0; i--)
         {
             var groupMask = subLaneGroupMaskBuffer[i];
             bool subLaneFound = false;
