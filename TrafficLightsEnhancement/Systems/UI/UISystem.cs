@@ -299,6 +299,12 @@ public partial class UISystem: ExtendedUISystemBase
 
     public void UpdateEntity(bool keepTimer = true, bool addUpdated = true)
     {
+        // The selected junction can disappear while its panel is still open.
+        if (!EntityManager.Exists(m_SelectedEntity)
+            || EntityManager.HasComponent<Deleted>(m_SelectedEntity))
+        {
+            return;
+        }
         if (m_SelectedEntity != Entity.Null)
         {
             if (!EntityManager.HasComponent<CustomTrafficLights>(m_SelectedEntity))

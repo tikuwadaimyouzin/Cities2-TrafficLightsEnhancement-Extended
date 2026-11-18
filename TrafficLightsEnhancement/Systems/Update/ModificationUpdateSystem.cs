@@ -16,6 +16,13 @@ public partial class ModificationUpdateSystem : GameSystemBase
 
     protected override void OnUpdate()
     {
+        if (m_UISystem.m_SelectedEntity != Entity.Null
+            && (!EntityManager.Exists(m_UISystem.m_SelectedEntity)
+                || EntityManager.HasComponent<Deleted>(m_UISystem.m_SelectedEntity)))
+        {
+            m_UISystem.ChangeSelectedEntity(Entity.Null);
+            return;
+        }
         if (m_UISystem.m_SelectedEntity != Entity.Null && EntityManager.HasComponent<Updated>(m_UISystem.m_SelectedEntity))
         {
             if (EntityManager.HasComponent<Game.Net.TrafficLights>(m_UISystem.m_SelectedEntity))
