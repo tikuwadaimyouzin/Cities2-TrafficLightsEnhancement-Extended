@@ -1,18 +1,17 @@
 import { useEffect } from "react";
 
 import engine from "cohtml/cohtml";
-import { bindValue, useValue } from "cs2/api";
-import mod from "mod.json";
+import { useValue } from "cs2/api";
 
-import { CityConfigurationContext, defaultCityConfiguration } from "./context";
-import { callKeyPress } from "bindings";
+import { CityConfigurationContext } from "./context";
+import { callKeyPress, cityConfiguration as cityConfigurationBinding } from "bindings";
 
 import MainPanel from "./components/main-panel";
 import CustomPhaseTool from "./components/custom-phase-tool";
 import { MigrationIssuesModal } from "./components/migration-issues";
 
 export default function App() {
-  const cityConfigurationJson = useValue(bindValue(mod.id, "GetCityConfiguration", JSON.stringify(defaultCityConfiguration)));
+  const cityConfigurationJson = useValue(cityConfigurationBinding.binding);
   const cityConfiguration = JSON.parse(cityConfigurationJson);
 
   useEffect(() => {

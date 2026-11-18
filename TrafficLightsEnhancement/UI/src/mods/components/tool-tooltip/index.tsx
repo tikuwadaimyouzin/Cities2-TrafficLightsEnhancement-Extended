@@ -2,11 +2,11 @@ import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 
-import { bindValue, useValue } from "cs2/api";
-import mod from "mod.json";
+import { useValue } from "cs2/api";
 
 import { useLocalization } from "cs2/l10n";
 import { ToolTooltipMessage } from "mods/general";
+import { toolTooltipMessage as toolTooltipMessageBinding } from "bindings";
 
 const Container = styled.div`
   position: fixed;
@@ -40,7 +40,7 @@ export default function ToolTooltip() {
   const [top, setTop] = useState(0);
   const [left, setLeft] = useState(0);
 
-  const tooltipMessage: ToolTooltipMessage[] = useValue(bindValue(mod.id, "GetToolTooltipMessage", []));
+  const tooltipMessage: ToolTooltipMessage[] = useValue(toolTooltipMessageBinding.binding);
 
   useEffect(() => {
     const mouseMoveHandler = (e: MouseEvent) => {

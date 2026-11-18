@@ -1,10 +1,11 @@
 import { EdgeInfo, ScreenPointMap, ToolTooltipMessage } from "./mods/general";
+import { defaultCityConfiguration } from "./mods/context";
 import { OneWayBinding } from "./utils/oneWayBinding";
 import { TwoWayBinding } from "./utils/bothWayBinding";
 import triggers from "./utils/trigger";
 
 export const locale = new OneWayBinding<string>("GetLocale", "{}");
-export const cityConfiguration = new OneWayBinding<string>("GetCityConfiguration", "{}");
+export const cityConfiguration = new OneWayBinding<string>("GetCityConfiguration", JSON.stringify(defaultCityConfiguration));
 export const mainPanel = new OneWayBinding<string>("GetMainPanel", "{}");
 export const toolTooltipMessage = new OneWayBinding<ToolTooltipMessage[]>("GetToolTooltipMessage", []);
 export const activeEditingCustomPhaseIndex = new OneWayBinding<number>("GetActiveEditingCustomPhaseIndex", -1);
